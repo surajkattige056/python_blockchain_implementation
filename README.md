@@ -8,7 +8,7 @@ The program also prints the blockchain and also the also checks for the blockcha
 
 Requirements:
 -------------
-Python =3.6 or above
+Python =3.6 or above\n
 Flask = 0.12.2 or above
 
 Commands:
