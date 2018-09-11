@@ -8,8 +8,8 @@ The program also prints the blockchain and also the also checks for the blockcha
 
 Requirements:
 -------------
-Python =3.6 or above.
-Flask = 0.12.2 or above.
+Python =3.6 or above<br/>
+Flask = 0.12.2 or above
 
 Commands:
 ---------
