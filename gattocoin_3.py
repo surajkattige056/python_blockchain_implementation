@@ -11,22 +11,29 @@ Created on Thu Jun 14 12:28:32 2018
 import hashlib
 import datetime
 import json
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 import random
+import requests
+from uuid import uuid4
+from urllib.parse import urlparse
 
 # Part 1 - Building a Blockchain
 
 class Blockchain:
     def __init__(self):
         self.chain = []
-        self.create_block(proof = 1, previous_hash = '0') #Previous block is 0 because it is a genesis block
+        self.transactions = []
+        self.create_block(proof=1, previous_hash='0') #Previous block is 0 because it is a genesis block
+        self.nodes = set()
 
     def create_block(self, proof, previous_hash):
         #Block in the blockchain will have index, timestamp (date when the block was mined), proof of work, and the hash of the previous block
         block = {'index': len(self.chain) + 1,
                  'timestamp': str(datetime.datetime.now()),
                  'proof': proof,
-                 'previous_hash': previous_hash}
+                 'previous_hash': previous_hash,
+                 'transactions': self.transactions}
+        self.transactions = []
         self.chain.append(block) #Appending the block to the blockchain
         return block
 
@@ -71,7 +78,40 @@ class Blockchain:
 
         return True
 
+    def add_transaction(self, sender, receiver, amount):
+        self.transactions.append({'sender': sender, 'receiver': receiver, 'amount': amount})
+        previous_block = self.get_previous_block()
+        return previous_block['index'] + 1
+
+    def add_node(self, address):
+        parsed_url = urlparse(address)
+        self.nodes.add(parsed_url.netloc)
+
+    def replace_chain(self):
+        network = self.nodes
+        longest_chain = None
+        max_length = len(self.chain)
+        for node in network:
+            response = requests.get('http://{}/get_chain'.format(node))
+            if response.status_code == 200:
+                response_json = response.json()
+                chain = response_json['chain']
+                length = response_json['length']
+                if max_length < length and self.is_chain_valid(chain):
+                    max_length = length
+                    longest_chain = chain
+        if longest_chain:
+            self.chain = longest_chain
+            return True
+        return False
+
+
+
 #Part 2 - Mining our blockchain
+
+
+# Creating an address for the node on port 5000
+node_address = str(uuid4()).replace('-', '') # This will be the unique address of the node
 
 # Creating a Web App
 app = Flask(__name__)
@@ -86,10 +126,12 @@ def mine_block():
     previous_proof = previous_block['proof']
     proof = blockchain.proof_of_work(previous_proof)
     previous_hash = blockchain.hash(previous_block)
+    blockchain.add_transaction(sender=node_address, receiver='Marble', amount=1) # This is a reward for the miner
     block = blockchain.create_block(proof, previous_hash)
     response = {'response': 'Congratulations! you just mined a block!',
                 'index': block['index'],
                 'timestamp': block['timestamp'],
+                'transactions': block['transactions'],
                 'proof': block['proof'],
                 'previous_hash': block['previous_hash']}
     return jsonify(response), 200
@@ -110,8 +152,48 @@ def is_valid():
 
     return jsonify(response), 200
 
+# Adding a new transaction to the blockchain
+@app.route('/add_transaction', methods=['POST'])
+def add_transaction():
+    json = request.get_json()
+    transaction_keys = ['sender', 'receiver', 'amount']
+    if not all (key in json for key in transaction_keys):
+        return "Some elements of the transaction are missing", 400
+    index = blockchain.add_transaction(sender=json['sender'], receiver=json['receiver'], amount=json['amount'])
+    response = {'message': 'This transaction will be added to block {}'.format(index)}
+    return jsonify(response), 201
+
+# Part 3 - Decentralizing our blockchain
+
+# Connecting new nodes
+@app.route('/connect_node', methods=['POST'])
+def connect_node():
+    json = request.get_json()
+    nodes = json.get('nodes')
+    if nodes is None:
+        return "No node", 400
+    for node in nodes:
+        blockchain.add_node(address=node)
+    response = {'message': 'All the nodes are now connected. The Gattocoin Blockchain now contains the following nodes',
+                'total_nodes': list(blockchain.nodes)}
+    return jsonify(response), 201
+
+# Replacing the chain by the longest chain if needed
+@app.route('/replace_chain', methods = ['GET'])
+def replace_chain():
+    is_chain_replaced = blockchain.replace_chain()
+    if is_chain_replaced:
+        response = {'message':'The node had different chains, so the chain was replaced with the longest one',
+                    'new_chain': blockchain.chain}
+    else:
+        response = {'message':'All good, the chain is the larget one',
+                    'actual_chain': blockchain.chain}
+
+    return jsonify(response), 200
+
+
 if __name__ == '__main__':
-    app.run(host='0.0.0.0',port=5000)
+    app.run(host='0.0.0.0',port=5002)
     
 
 

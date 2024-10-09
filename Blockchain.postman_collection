@@ -1,0 +1,551 @@
+{
+	"info": {
+		"_postman_id": "d5d77555-6d23-40be-9e92-38e39e13429e",
+		"name": "Blockchain module 2",
+		"description": "This is part of the Blockchain training on udemy. This module is mainly for creating and testing a cryptocurrency",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3351932"
+	},
+	"item": [
+		{
+			"name": "Butterscotch",
+			"item": [
+				{
+					"name": "Connect Node",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nodes\": [\"http://127.0.0.1:5001\",\r\n            \"http://127.0.0.1:5002\"]\r\n}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/connect_node",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"connect_node"
+							]
+						},
+						"description": "This is testing for node on port 5001"
+					},
+					"response": []
+				},
+				{
+					"name": "Add Transaction",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"sender\": \"\",\r\n  \"receiver\": \"\",\r\n  \"amount\": 0\r\n}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/add_transaction",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"add_transaction"
+							]
+						},
+						"description": "This is testing for node on port 5001"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Chain",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/get_chain",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"get_chain"
+							]
+						},
+						"description": "This will be used to get the chain"
+					},
+					"response": []
+				},
+				{
+					"name": "Replace Chain",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/replace_chain",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"replace_chain"
+							]
+						},
+						"description": "This will be used to get the chain"
+					},
+					"response": []
+				},
+				{
+					"name": "Mine Block",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/mine_block",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"mine_block"
+							]
+						},
+						"description": "Mine a block and append it to the block chain"
+					},
+					"response": []
+				},
+				{
+					"name": "Chain Validity",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/is_valid",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"is_valid"
+							]
+						},
+						"description": "This request is used to check the validity of the chain"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Panther",
+			"item": [
+				{
+					"name": "Connect Node",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nodes\": [\"http://127.0.0.1:5002\",\r\n            \"http://127.0.0.1:5000\"]\r\n}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5001/connect_node",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5001",
+							"path": [
+								"connect_node"
+							]
+						},
+						"description": "This is a request page for node running on port 5002"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Chain",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5001/get_chain",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5001",
+							"path": [
+								"get_chain"
+							]
+						},
+						"description": "This will be used to get the chain"
+					},
+					"response": []
+				},
+				{
+					"name": "Mine Block",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5001/mine_block",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5001",
+							"path": [
+								"mine_block"
+							]
+						},
+						"description": "Mine a block and append it to the block chain"
+					},
+					"response": []
+				},
+				{
+					"name": "Chain Validity",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5001/is_valid",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5001",
+							"path": [
+								"is_valid"
+							]
+						},
+						"description": "This request is used to check the validity of the chain"
+					},
+					"response": []
+				},
+				{
+					"name": "Replace Chain",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5001/replace_chain",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5001",
+							"path": [
+								"replace_chain"
+							]
+						},
+						"description": "This will be used to get the chain"
+					},
+					"response": []
+				},
+				{
+					"name": "Add Transaction",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"sender\": \"\",\r\n  \"receiver\": \"\",\r\n  \"amount\": 0\r\n}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5001/add_transaction",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5001",
+							"path": [
+								"add_transaction"
+							]
+						},
+						"description": "This is testing for node on port 5001"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Marble",
+			"item": [
+				{
+					"name": "Connect Node",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nodes\": [\"http://127.0.0.1:5000\",\r\n            \"http://127.0.0.1:5001\"]\r\n}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5002/connect_node",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5002",
+							"path": [
+								"connect_node"
+							]
+						},
+						"description": "This is the request page for a node running on port 5003"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Chain",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5002/get_chain",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5002",
+							"path": [
+								"get_chain"
+							]
+						},
+						"description": "This will be used to get the chain"
+					},
+					"response": []
+				},
+				{
+					"name": "Mine Block",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5002/mine_block",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5002",
+							"path": [
+								"mine_block"
+							]
+						},
+						"description": "Mine a block and append it to the block chain"
+					},
+					"response": []
+				},
+				{
+					"name": "Chain Validity",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5002/is_valid",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5002",
+							"path": [
+								"is_valid"
+							]
+						},
+						"description": "This request is used to check the validity of the chain"
+					},
+					"response": []
+				},
+				{
+					"name": "Replace Chain",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5002/replace_chain",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5002",
+							"path": [
+								"replace_chain"
+							]
+						},
+						"description": "This will be used to get the chain"
+					},
+					"response": []
+				},
+				{
+					"name": "Add Transaction",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"sender\": \"\",\r\n  \"receiver\": \"\",\r\n  \"amount\": 0\r\n}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5002/add_transaction",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5002",
+							"path": [
+								"add_transaction"
+							]
+						},
+						"description": "This is testing for node on port 5001"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
