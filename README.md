@@ -28,3 +28,20 @@ Example json header:
 "False" if the blockchain is invalid
 
 3) http://127.0.0.1:5000/get_chain - This command will be used to print the blockchain
+
+4) http://127.0.0.1:5000/replace_chain - This command will be used to update the blockchain with the longest chain in the network, mainly forming consensus in the network
+
+5) http://127.0.0.1:5000/connect_node - This command will be used to update all the connected nodes in the network. This will be used to form a consesus in the network. Insert JSON headers as below:
+Example json post request:
+{
+	"nodes": ["http://127.0.0.1:5001",
+			  "http://127.0.0.1:5002"]
+}
+
+6) http://127.0.0.1:5000/add_transaction - This command will be used to add cryptocurrency transaction in the network. Insert JSON headers as shown below:
+Example JSON header:
+{
+	"sender": "Butterscotch",
+	"receiver": "Panther",
+	"amount": 10
+}
